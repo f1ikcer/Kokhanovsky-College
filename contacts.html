@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-key="title_contacts">Контакты — КГК</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=120&h=120&fit=crop" alt="эмблема">
+    <span data-key="college_name">КГК</span>
+  </div>
+  <div class="lang">
+    <button class="lang-btn active" data-lang="ru">РУС</button>
+    <button class="lang-btn" data-lang="be">БЕЛ</button>
+  </div>
+</header>
+
+<main class="container">
+
+  <h1 data-key="contacts_h1">Контакты</h1>
+
+  <div class="card contact-card">
+    <div class="contact-row">
+      <i class="fa-solid fa-location-dot"></i>
+      <div>
+        <strong>Адрес:</strong><br>
+        211135, Витебская обл., Оршанский р-н, аг. Коханово, ул. Оршанская, 94
+      </div>
+    </div>
+
+    <div class="contact-row">
+      <i class="fa-solid fa-phone"></i>
+      <div>
+        <strong>Телефоны:</strong><br>
+        +375 (2136) 2-93-48<br>
+        +375 (2136) 2-94-12 (приёмная)
+      </div>
+    </div>
+
+    <div class="contact-row">
+      <i class="fa-solid fa-envelope"></i>
+      <div>
+        <strong>Email:</strong><br>
+        -
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Как добраться</h3>
+    <!-- Карту можно заменить на другую iframe -->
+    <iframe src="https://maps.app.goo.gl/Q554QvVjn9PJvmDk9?g_st=atm" style="width:100%;height:320px;border-radius:12px;"></iframe>
+  </div>
+
+</main>
+
+<nav class="bottom-nav">
+  <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span data-key="nav_home">Главная</span></a>
+  <a href="schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i><span data-key="nav_schedule">Расписание</span></a>
+  <a href="about.html" class="nav-item"><i class="fa-solid fa-user"></i><span data-key="nav_about">О создателе</span></a>
+  <a href="gallery.html" class="nav-item"><i class="fa-solid fa-images"></i><span data-key="nav_gallery">Галерея</span></a>
+  <a href="contacts.html" class="nav-item active"><i class="fa-solid fa-envelope"></i><span data-key="nav_contacts">Контакты</span></a>
+</nav>
+
+<button id="to-top" title="Наверх"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="script.js"></script>
+</body>
+</html>
