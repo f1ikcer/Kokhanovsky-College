@@ -6,6 +6,103 @@
   <title data-key="title_schedule">Расписание — КГК</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Таблица распорядка дня — узкая, влезает без скролла ── */
+    .timetable {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+    .timetable th {
+      background: #222;
+      color: var(--accent);
+      font-weight: 600;
+      padding: 9px 8px;
+      text-align: center;
+      border-bottom: 2px solid #333;
+    }
+    .timetable td {
+      padding: 7px 8px;
+      text-align: center;
+      border-bottom: 1px solid #242424;
+      vertical-align: middle;
+    }
+    .timetable td:first-child {
+      background: #1e1e1e;
+      font-weight: 700;
+      color: var(--accent);
+      width: 48px;
+    }
+    .timetable .lunch-row td {
+      font-size: 0.78rem;
+      color: var(--text2);
+      background: #161616;
+      padding: 4px 8px;
+      font-style: italic;
+    }
+    .timetable tr:last-child td { border-bottom: none; }
+
+    /* ── Таблица занятий по группам — карточки ── */
+    .groups-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      margin-bottom: 24px;
+    }
+    .groups-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .groups-table th {
+      background: #222;
+      color: var(--accent);
+      font-weight: 700;
+      padding: 8px 4px;
+      text-align: center;
+      border-bottom: 2px solid #333;
+      white-space: nowrap;
+    }
+    .groups-table th:first-child {
+      width: 28px;
+    }
+    .groups-table td {
+      padding: 6px 4px;
+      text-align: center;
+      border-bottom: 1px solid #242424;
+      border-right: 1px solid #242424;
+      vertical-align: middle;
+      line-height: 1.25;
+      word-break: break-word;
+      hyphens: auto;
+    }
+    .groups-table td:first-child {
+      background: #1e1e1e;
+      font-weight: 700;
+      color: var(--accent);
+      border-right: 2px solid #333;
+    }
+    .groups-table td:last-child { border-right: none; }
+    .groups-table tr:last-child td { border-bottom: none; }
+    .groups-table tr:hover td { background: #202020; }
+    .groups-table tr:hover td:first-child { background: #1a1a1a; }
+
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 12px 0;
+    }
+    .section-title span {
+      color: var(--accent);
+    }
+  </style>
 </head>
 <body>
 
@@ -24,139 +121,94 @@
 
   <h1>Расписание</h1>
 
-  <!-- БЛОК 1: РАСПИСАНИЕ ПАР (РАСПОРЯДОК ДНЯ) – очень маленькое, вверху -->
-  <section class="schedule-section">
-    <h3>Распорядок дня (I полугодие 2025/2026)</h3>
-    <div class="schedule-table-wrapper">
-  <table class="schedule-table ultra-compact">
+  <!-- БЛОК 1: РАСПОРЯДОК ДНЯ -->
+  <p class="section-title">Распорядок дня <span>(I полугодие 2025/2026)</span></p>
+  <table class="timetable">
     <thead>
       <tr>
-        <th>№ пары</th>
-        <th>№ урока</th>
-        <th>Начало – Конец</th>
+        <th>Пара</th>
+        <th>Урок</th>
+        <th>Время</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td rowspan="2">1</td>
-        <td>1</td>
-        <td>8:30 – 9:15</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>9:25 – 10:10</td>
-      </tr>
-
-      <tr>
-        <td rowspan="3">2</td>
-        <td>3</td>
-        <td>10:20 – 11:05</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>11:15 – 12:00</td>
-      </tr>
-      <tr>
-        <td colspan="2"><small>Обед (гр.163,164,159) 12:00 – 12:20</small></td>
-      </tr>
-
-      <tr>
-        <td rowspan="3">3</td>
-        <td>5</td>
-        <td>12:20 – 13:05</td>
-      </tr>
-      <tr>
-        <td colspan="2"><small>Обед (гр.160,161,158) 13:05 – 13:25</small></td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>13:25 – 14:10</td>
-      </tr>
-
-      <tr>
-        <td rowspan="2">4</td>
-        <td>7</td>
-        <td>14:20 – 15:05</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>15:15 – 16:00</td>
-      </tr>
+      <tr><td>1</td><td>1</td><td>8:30 – 9:15</td></tr>
+      <tr><td>1</td><td>2</td><td>9:25 – 10:10</td></tr>
+      <tr><td>2</td><td>3</td><td>10:20 – 11:05</td></tr>
+      <tr><td>2</td><td>4</td><td>11:15 – 12:00</td></tr>
+      <tr class="lunch-row"><td colspan="3">Обед (гр.163,164,159) 12:00 – 12:20</td></tr>
+      <tr><td>3</td><td>5</td><td>12:20 – 13:05</td></tr>
+      <tr class="lunch-row"><td colspan="3">Обед (гр.160,161,158) 13:05 – 13:25</td></tr>
+      <tr><td>3</td><td>6</td><td>13:25 – 14:10</td></tr>
+      <tr><td>4</td><td>7</td><td>14:20 – 15:05</td></tr>
+      <tr><td>4</td><td>8</td><td>15:15 – 16:00</td></tr>
     </tbody>
   </table>
-</div>
-  </section>
 
-  <!-- БЛОК 2: РАСПИСАНИЕ ЗАНЯТИЙ ПО ГРУППАМ – ниже, тоже максимально уменьшенное -->
-  <section class="schedule-section">
-    <h3>Занятия по группам (06.03.2026)</h3>
-    <div class="schedule-table-wrapper">
-      <table class="schedule-table compact">
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>158</th>
-            <th>159</th>
-            <th>160</th>
-            <th>161</th>
-            <th>163</th>
-            <th>164</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>устройство и эксплуатация авто</td>
-            <td>сдача на временные права</td>
-            <td>устройство СМСХН<br><small></small></td>
-            <td>физра / ТОМР<small></small></td>
-            <td>обществознание / физра<br><small></small></td>
-            <td>электотехника</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>ЛПЗ (устройство СМ кат «Е»</td>
-            <td>-</td>
-            <td>математика</td>
-            <td>прикл.информатика(н) / английский язык<br><small></small></td>
-            <td>устройство СМСХН</td>
-            <td>ТОМР / физра</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>ЛПЗ (устройство СМ кат. «Е»</td>
-            <td>-</td>
-            <td>физра</td>
-            <td>физика</td>
-            <td>биология</td>
-            <td>ПДД</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>ЛПЗ (устройство СМ кат. «Е»)</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <p class="hint schedule-hint">
-  
-  </p>
+  <!-- БЛОК 2: ЗАНЯТИЯ ПО ГРУППАМ -->
+  <p class="section-title">Занятия по группам <span>(06.03.2026)</span></p>
+  <div class="groups-card">
+    <table class="groups-table">
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>158</th>
+          <th>159</th>
+          <th>160</th>
+          <th>161</th>
+          <th>163</th>
+          <th>164</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>уст. авто</td>
+          <td>сдача прав</td>
+          <td>СМСХН</td>
+          <td>физра / ТОМР</td>
+          <td>общест. / физра</td>
+          <td>электро-техника</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>ЛПЗ кат.«Е»</td>
+          <td>-</td>
+          <td>математика</td>
+          <td>информ. / англ.</td>
+          <td>СМСХН</td>
+          <td>ТОМР / физра</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>ЛПЗ кат.«Е»</td>
+          <td>-</td>
+          <td>физра</td>
+          <td>физика</td>
+          <td>биология</td>
+          <td>ПДД</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>ЛПЗ кат.«Е»</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </main>
 
@@ -166,6 +218,7 @@
   <a href="about.html" class="nav-item"><i class="fa-solid fa-user"></i><span data-key="nav_about">О создателе</span></a>
   <a href="gallery.html" class="nav-item"><i class="fa-solid fa-images"></i><span data-key="nav_gallery">Галерея</span></a>
   <a href="contacts.html" class="nav-item"><i class="fa-solid fa-envelope"></i><span data-key="nav_contacts">Контакты</span></a>
+  <a href="wheel.html" class="nav-item"><i class="fa-solid fa-dharmachakra"></i><span data-key="nav_wheel">Колесо фортуны</span></a>
 </nav>
 
 <button id="to-top" title="Наверх"><i class="fa-solid fa-chevron-up"></i></button>
