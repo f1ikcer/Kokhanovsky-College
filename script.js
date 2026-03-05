@@ -26,7 +26,9 @@ const langData = {
     nav_schedule: "Расписание",
     nav_about:    "О создателе",
     nav_gallery:  "Галерея",
-    nav_contacts: "Контакты"
+    nav_contacts: "Контакты",
+    nav_wheel:    "Колесо фортуны",
+    title_wheel:  "Колесо фортуны — КГК"
   },
 
   be: {
@@ -55,7 +57,9 @@ const langData = {
     nav_schedule: "Расклад",
     nav_about:    "Аб стваральніку",
     nav_gallery:  "Галерэя",
-    nav_contacts: "Кантакты"
+    nav_contacts: "Кантакты",
+    nav_wheel:    "Кола фартуны",
+    title_wheel:  "Кола фартуны — КГК"
   }
 };
 
