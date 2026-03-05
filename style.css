@@ -187,10 +187,10 @@ time {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 74px;
-  background: rgba(20,20,20,0.96);
+  height: 64px;
+  background: rgba(20,20,20,0.97);
   backdrop-filter: blur(12px);
-  border-top: 1px solid #222;
+  border-top: 1px solid #2a2a2a;
   display: flex;
   z-index: 999;
   transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
@@ -204,8 +204,11 @@ time {
   justify-content: center;
   color: var(--text2);
   text-decoration: none;
-  font-size: 0.78rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.01em;
   transition: color 0.2s;
+  padding: 6px 2px 4px;
+  gap: 3px;
 }
 
 .nav-item.active,
@@ -214,15 +217,24 @@ time {
 }
 
 .nav-item i {
-  font-size: 1.45rem;
-  margin-bottom: 3px;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.nav-item span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
 }
 
 /* ─── Кнопка наверх ────────────────────────────────────────────────── */
 
 #to-top {
   position: fixed;
-  bottom: 94px;
+  bottom: 80px;
   right: 18px;
   width: 48px;
   height: 48px;
@@ -266,8 +278,7 @@ time {
   cursor: pointer;
 }
 
-/* ─── Компактная таблица расписания ─────────────────────────────────── */
-
+/* ─── Старые стили расписания (оставлены для совместимости) ─────────── */
 .schedule-date {
   text-align: center;
   font-size: 1.25rem;
@@ -285,7 +296,6 @@ time {
 
 .schedule-table {
   width: 100%;
-  min-width: 680px;
   border-collapse: collapse;
   background: var(--card);
   font-size: 0.92rem;
@@ -304,9 +314,6 @@ time {
   color: var(--accent);
   font-weight: 600;
   font-size: 0.9rem;
-  position: sticky;
-  top: 0;
-  z-index: 2;
 }
 
 .schedule-table td {
@@ -337,18 +344,4 @@ time {
   text-align: center;
   color: var(--text2);
   font-size: 0.9rem;
-}
-
-/* На очень маленьких экранах */
-@media (max-width: 420px) {
-  .schedule-table {
-    font-size: 0.86rem;
-  }
-  .schedule-table th,
-  .schedule-table td {
-    padding: 7px 5px;
-  }
-  .schedule-table small {
-    font-size: 0.74rem;
-  }
-}
+    }
