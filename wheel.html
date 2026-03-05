@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-key="title_wheel">Колесо фортуны — КГК</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .wheel-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 16px 40px;
+    }
+
+    .wheel-page h1 {
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .wheel-page .subtitle {
+      color: var(--text2);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .wheel-wrapper {
+      position: relative;
+      width: min(300px, 86vw);
+      height: min(300px, 86vw);
+      margin-bottom: 28px;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 28px solid #ffffff;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.8));
+      z-index: 10;
+    }
+
+    #wheelCanvas {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 5px #222,
+        0 0 40px rgba(74,144,226,0.3),
+        0 8px 30px rgba(0,0,0,0.7);
+      display: block;
+    }
+
+    .spin-btn {
+      padding: 15px 52px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #4a90e2, #2ecc71);
+      color: #000;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 20px rgba(74,144,226,0.35);
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+      margin-bottom: 28px;
+    }
+
+    .spin-btn:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(74,144,226,0.5);
+    }
+
+    .spin-btn:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+
+    .spin-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .result-box {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 22px 36px;
+      text-align: center;
+      min-width: 240px;
+      max-width: 320px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      pointer-events: none;
+    }
+
+    .result-box.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .result-emoji {
+      font-size: 3rem;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .result-label {
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .result-label.yes { color: #e74c3c; }
+    .result-label.no  { color: #2ecc71; }
+
+    @media (max-width: 430px) {
+      .nav-item span { display: none; }
+      .nav-item i { margin-bottom: 0; font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=120&h=120&fit=crop" alt="эмблема">
+    <span data-key="college_name">КГК</span>
+  </div>
+  <div class="lang">
+    <button class="lang-btn active" data-lang="ru">РУС</button>
+    <button class="lang-btn" data-lang="be">БЕЛ</button>
+  </div>
+</header>
+
+<main class="container">
+  <div class="wheel-page">
+
+    <h1>🎡 Колесо фортуны</h1>
+    <p class="subtitle">Пусть судьба решит!</p>
+
+    <div class="wheel-wrapper">
+      <div class="wheel-pointer"></div>
+      <canvas id="wheelCanvas" width="600" height="600"></canvas>
+    </div>
+
+    <button class="spin-btn" id="spinBtn">КРУТИТЬ!</button>
+
+    <div class="result-box" id="resultBox">
+      <div class="result-emoji" id="resultEmoji"></div>
+      <div class="result-label" id="resultLabel"></div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="bottom-nav">
+  <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span data-key="nav_home">Главная</span></a>
+  <a href="schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i><span data-key="nav_schedule">Расписание</span></a>
+  <a href="about.html" class="nav-item"><i class="fa-solid fa-user"></i><span data-key="nav_about">О создателе</span></a>
+  <a href="gallery.html" class="nav-item"><i class="fa-solid fa-images"></i><span data-key="nav_gallery">Галерея</span></a>
+  <a href="contacts.html" class="nav-item"><i class="fa-solid fa-envelope"></i><span data-key="nav_contacts">Контакты</span></a>
+  <a href="wheel.html" class="nav-item active"><i class="fa-solid fa-dharmachakra"></i><span data-key="nav_wheel">Колесо фортуны</span></a>
+</nav>
+
+<button id="to-top" title="Наверх"><i class="fa-solid fa-chevron-up"></i></button>
+
+<script src="script.js"></script>
+<script>
+  const canvas      = document.getElementById("wheelCanvas");
+  const ctx         = canvas.getContext("2d");
+  const spinBtn     = document.getElementById("spinBtn");
+  const resultBox   = document.getElementById("resultBox");
+  const resultEmoji = document.getElementById("resultEmoji");
+  const resultLabel = document.getElementById("resultLabel");
+
+  // Сегмент 0: "Идём в шмагу!"  — КРАСНЫЙ
+  // Сегмент 1: "Не идём в шмагу" — ЗЕЛЁНЫЙ
+  const segments = [
+    { lines: ["Идём", "в шмагу!"],    bg: "#3d0d0d", textColor: "#e74c3c", isYes: true  },
+    { lines: ["Не идём", "в шмагу"],  bg: "#0d3d20", textColor: "#2ecc71", isYes: false }
+  ];
+
+  const N   = segments.length;
+  const SEG = Math.PI; // 180° на каждый (2π / 2)
+  let angle    = -Math.PI / 2; // стартовая позиция: граница сверху
+  let spinning = false;
+
+  function drawWheel(a) {
+    const W  = canvas.width;
+    const cx = W / 2;
+    const cy = W / 2;
+    const R  = cx - 8;
+
+    ctx.clearRect(0, 0, W, W);
+
+    segments.forEach((seg, i) => {
+      const start = a + i * SEG;
+      const end   = start + SEG;
+
+      // — сектор —
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, R, start, end);
+      ctx.closePath();
+      ctx.fillStyle = seg.bg;
+      ctx.fill();
+
+      // — текст горизонтально в центре масс полукруга —
+      // Центр масс полукруга по радиусу = 4R / (3π)
+      const cm      = (4 * R) / (3 * Math.PI);
+      const midAng  = start + SEG / 2;  // угол до центра масс
+      const tx      = cx + cm * Math.cos(midAng);
+      const ty      = cy + cm * Math.sin(midAng);
+
+      const fontSize = Math.round(W * 0.072);
+      const lineH    = fontSize * 1.5;
+      const totalH   = seg.lines.length * lineH;
+
+      ctx.save();
+      ctx.font         = `bold ${fontSize}px system-ui, sans-serif`;
+      ctx.fillStyle    = seg.textColor;
+      ctx.textAlign    = "center";
+      ctx.textBaseline = "middle";
+      ctx.shadowColor  = "rgba(0,0,0,0.9)";
+      ctx.shadowBlur   = 12;
+
+      seg.lines.forEach((line, li) => {
+        const yOff = -totalH / 2 + li * lineH + lineH / 2;
+        ctx.fillText(line, tx, ty + yOff);
+      });
+
+      ctx.restore();
+    });
+
+    // — линии раздела —
+    for (let i = 0; i < N; i++) {
+      const la = a + i * SEG;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + R * Math.cos(la), cy + R * Math.sin(la));
+      ctx.strokeStyle = "#0a0a0a";
+      ctx.lineWidth   = 6;
+      ctx.stroke();
+    }
+
+    // — внешнее кольцо —
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, 2 * Math.PI);
+    ctx.strokeStyle = "#333";
+    ctx.lineWidth   = 10;
+    ctx.stroke();
+
+    // — центральный кружок —
+    const gr = ctx.createRadialGradient(cx, cy, 0, cx, cy, W * 0.075);
+    gr.addColorStop(0, "#777");
+    gr.addColorStop(1, "#111");
+    ctx.beginPath();
+    ctx.arc(cx, cy, W * 0.075, 0, 2 * Math.PI);
+    ctx.fillStyle   = gr;
+    ctx.fill();
+    ctx.strokeStyle = "#555";
+    ctx.lineWidth   = 3;
+    ctx.stroke();
+  }
+
+  drawWheel(angle);
+
+  // ── спин ───────────────────────────────────────────────────────────────
+  spinBtn.addEventListener("click", () => {
+    if (spinning) return;
+    spinning = true;
+    spinBtn.disabled = true;
+    resultBox.classList.remove("show");
+
+    // случайный победитель 50/50
+    const winner = Math.random() < 0.5 ? 0 : 1;
+
+    // Указатель сверху ≡ угол -π/2 = 270°
+    // Центр (середина) победного сегмента должен оказаться под указателем:
+    //   angle_new + winner*SEG + SEG/2 = -π/2  (mod 2π)
+    // angle_new = angle + totalRot
+    // => totalRot = -π/2 - winner*SEG - SEG/2 - angle  (+ fullSpins)
+    const target = -Math.PI / 2 - winner * SEG - SEG / 2 - angle;
+    const fullSpins = (6 + Math.floor(Math.random() * 4)) * 2 * Math.PI;
+    const totalRot  = fullSpins + ((target % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+
+    const duration   = 4500 + Math.random() * 800;
+    const startAngle = angle;
+    const startTime  = performance.now();
+
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function tick(now) {
+      const t = Math.min((now - startTime) / duration, 1);
+      angle = startAngle + totalRot * easeOut(t);
+      drawWheel(angle);
+      if (t < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        angle = startAngle + totalRot;
+        drawWheel(angle);
+        spinning = false;
+        spinBtn.disabled = false;
+        showResult(segments[winner]);
+      }
+    }
+
+    requestAnimationFrame(tick);
+  });
+
+  function showResult(seg) {
+    resultEmoji.textContent = seg.isYes ? "😭" : "🍺";
+    resultLabel.textContent = seg.isYes ? "Идём в шмагу!" : "Не идём в шмагу";
+    resultLabel.className   = "result-label " + (seg.isYes ? "yes" : "no");
+    resultBox.classList.add("show");
+  }
+</script>
+</body>
+  </html>
