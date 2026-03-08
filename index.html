@@ -1,40 +1,50 @@
 <!DOCTYPE html>
-<html lang="ru" data-lang="ru">
+<html lang="ru" data-lang="ru" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#080810"/>
   <title data-key="title">Кохановский государственный колледж</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <div class="logo">
-    <!-- Эмблема колледжа — замени ссылку на свою картинку -->
+  <a href="index.html" class="logo">
     <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=120&h=120&fit=crop" alt="эмблема">
     <span data-key="college_name">КГК</span>
-  </div>
-
-  <div class="lang">
-    <button class="lang-btn active" data-lang="ru">РУС</button>
-    <button class="lang-btn" data-lang="be">БЕЛ</button>
+  </a>
+  <div class="header-controls">
+    <div class="lang">
+      <button class="lang-btn active" data-lang="ru">РУС</button>
+      <button class="lang-btn" data-lang="be">БЕЛ</button>
+    </div>
+    <button id="theme-toggle" title="Сменить тему"><i class="fa-solid fa-sun"></i></button>
   </div>
 </header>
 
 <main class="container">
 
-  <!-- Заставка на главной — замени background-image url(...) на свою -->
-  <div class="hero" style="background-image: url('https://iili.io/qBPRdaS.md.jpg');">
+  <div class="hero" style="background-image:url('https://iili.io/qBPRdaS.md.jpg');">
     <div class="hero-overlay">
       <h1 data-key="welcome">Добро пожаловать<br>в Кохановский колледж</h1>
     </div>
   </div>
 
-  <section class="card about-short">
+  <!-- ОБРАТНЫЙ ОТСЧЁТ -->
+  <div class="countdown-card">
+    <h3 data-key="countdown_label">до конца учёбы</h3>
+    <div id="countdown"></div>
+  </div>
+
+  <section class="card">
     <h2 data-key="about_college">О колледже</h2>
     <p>Государственное учреждение образования «Кохановский государственный профессионально-технический колледж» осуществляет подготовку рабочих и служащих по 8 профессиям.</p>
-    <p data-key="about_college_2">Колледж расположен в живописном месте Оршанского района — агрогородке Коханово.</p>
+    <p style="margin-top:10px" data-key="about_college_2">Колледж расположен в живописном месте Оршанского района — агрогородке Коханово.</p>
   </section>
 
   <section class="card">
@@ -61,14 +71,7 @@
   <a href="contacts.html" class="nav-item"><i class="fa-solid fa-envelope"></i><span data-key="nav_contacts">Контакты</span></a>
   <a href="wheel.html" class="nav-item"><i class="fa-solid fa-dharmachakra"></i><span data-key="nav_wheel">Колесо фортуны</span></a>
 </nav>
-
 <button id="to-top" title="Наверх"><i class="fa-solid fa-chevron-up"></i></button>
-
-<div id="lightbox" class="lightbox">
-  <span class="close-lightbox">×</span>
-  <img id="lightbox-img" src="" alt="">
-</div>
-
 <script src="script.js"></script>
 </body>
 </html>
