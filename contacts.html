@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"/>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="КГК">
 </head>
 <body>
 <header>
@@ -59,6 +64,24 @@
       </a>
     </div>
   </div>
+
+  <div class="card" style="text-align:center;">
+    <h3 style="margin-bottom:10px;">📲 QR-код сайта</h3>
+    <p style="margin-bottom:14px;font-size:0.85rem;">Отсканируй камерой — откроется сайт</p>
+    <div style="display:inline-block;background:#fff;padding:10px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.3);">
+      <img id="qr-img"
+           src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=https%3A//f1ikcer.github.io/Kokhan&choe=UTF-8&chld=H|1"
+           alt="QR-код"
+           width="200" height="200"
+           style="display:block;border-radius:6px;"
+           onerror="this.style.display='none';document.getElementById('qr-fallback').style.display='block'"/>
+      <div id="qr-fallback" style="display:none;width:200px;height:200px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
+        <span style="font-size:2rem;">🔗</span>
+        <span style="font-size:0.75rem;color:#333;word-break:break-all;">f1ikcer.github.io/Kokhan</span>
+      </div>
+    </div>
+    <p style="margin-top:12px;font-size:0.78rem;color:var(--text2);">Поделись с одногруппниками! 👋</p>
+  </div>
 </main>
 <nav class="bottom-nav">
   <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i><span data-key="nav_home">Главная</span></a>
@@ -70,5 +93,11 @@
 </nav>
 <button id="to-top" title="Наверх"><i class="fa-solid fa-chevron-up"></i></button>
 <script src="script.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js").catch(function(){});
+  }
+</script>
+
 </body>
 </html>
